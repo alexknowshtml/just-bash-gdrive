@@ -8,19 +8,17 @@ Inspired by [just-bash-dropbox](https://github.com/manishrc/just-bash-dropbox) �
 
 ## Why not just use the Drive API or gogcli?
 
-Tools like [gogcli](https://github.com/steipete/gogcli) are great when *you* know exactly what you want to do with Drive. You write the specific command, it runs.
+Tools like [gogcli](https://github.com/steipete/gogcli) are great for deterministic, human-authored Drive operations.
 
-`just-bash-gdrive` is for when you want to hand an *agent* the ability to figure that out — and do it safely.
+`just-bash-gdrive` is optimized for agents. Every LLM already knows bash — `ls`, `cat`, `grep`, `find`, pipes, redirects. That's zero tokens spent teaching the model a new API surface, zero schema to include in your system prompt, and no wiring up per-operation code. The agent reaches for tools it already has, applied to Drive.
 
-**Compositional bash logic at runtime.** An LLM can write arbitrary pipelines on the fly — `find / -name "*.md" | xargs grep "keyword" | sort` — without you anticipating every possible query in advance. No new API code per use case.
+**Consistency.** One `bash` tool in your agent covers the local filesystem, Drive, and anything else you mount — same commands, same mental model, same token budget.
 
-**Drive as a mountable filesystem.** `MountableFs` lets you compose Drive with other filesystems. An agent works across `/drive` (real files) and `/tmp` (scratch space) in the same bash session. The Drive API has no composability story.
+**Token efficiency.** Describing the Drive API costs tokens every call. Bash costs nothing — it's already there.
 
-**Safe exploration mode.** Mount Drive read-only — the agent can `cat`, `grep`, and `find` freely with zero write risk. There's no equivalent in any Drive CLI.
+**Composability.** `MountableFs` lets agents work across `/drive` (real files) and `/tmp` (scratch space) in the same session without switching tools or context.
 
-**AI SDK tool wrapper.** The `bash-tool` package from just-bash wraps the whole thing as a single LLM tool. One line to give any model bash access to Drive.
-
-**The rule of thumb:** use gogcli when you're writing the script. Use just-bash-gdrive when the agent is writing the script.
+**Safe exploration.** Mount Drive read-only — agents can `cat`, `grep`, and `find` freely with zero write risk.
 
 ## Install
 
