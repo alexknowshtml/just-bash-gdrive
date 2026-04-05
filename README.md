@@ -143,7 +143,7 @@ Rate limit handling: automatically retries on HTTP 429 with `Retry-After` backof
 - `chmod`, `symlink`, `link`, `readlink`, `utimes` throw `ENOSYS` — Drive has no POSIX permission or symlink concept
 - `getAllPaths()` returns `[]` until `prefetchAllPaths()` is called — glob operations require prefetch
 - `appendFile` reads the existing file, appends, then rewrites — Drive has no atomic append
-- Google Workspace files (Docs, Sheets, Slides) cannot be read as raw content; use `gog-andy` or the Drive export API for those
+- Google Workspace files (Docs, Sheets, Slides) cannot be read as raw content; use `gog export` (gogcli) or the Drive export API to convert them first
 
 ## Inspiration
 
