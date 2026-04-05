@@ -1,6 +1,6 @@
 {
   "name": "just-bash-gdrive",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Google Drive filesystem adapter for just-bash",
   "type": "module",
   "license": "Apache-2.0",
