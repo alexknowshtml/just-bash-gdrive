@@ -76,7 +76,32 @@ const { text } = await generateText({
 
 ### Getting an access token
 
-Use your preferred Google OAuth2 library. The `accessToken` option accepts either a static string or an async function — use the async form for long-running agents so the token refreshes automatically:
+The `accessToken` option accepts either a static string or an async function — use the async form for long-running agents so the token refreshes automatically.
+
+**Option 1: [gogcli](https://github.com/steipete/gogcli) (recommended for quick setup)**
+
+gogcli handles Google OAuth2 authentication and stores tokens locally. After running `gog auth login`, you can retrieve tokens programmatically:
+
+```bash
+# Install gogcli
+npm install -g gogcli
+
+# Authenticate (opens browser)
+gog auth login
+```
+
+```ts
+import { execSync } from "child_process";
+
+const fs = new GDriveFs({
+  accessToken: () => {
+    // gogcli outputs a fresh token to stdout
+    return execSync("gog auth token", { encoding: "utf8" }).trim();
+  },
+});
+```
+
+**Option 2: googleapis (full OAuth2 flow)**
 
 ```ts
 import { google } from "googleapis";
@@ -90,6 +115,14 @@ const fs = new GDriveFs({
     return token!;
   },
 });
+```
+
+**Option 3: Static token (scripts and testing)**
+
+For short-lived scripts, pass a token directly. Get one via `gog auth token` or the [OAuth2 Playground](https://developers.google.com/oauthplayground).
+
+```ts
+const fs = new GDriveFs({ accessToken: "ya29.your_token_here" });
 ```
 
 ## Options
