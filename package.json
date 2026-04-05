@@ -1,0 +1,28 @@
+{
+  "name": "just-bash-gdrive",
+  "version": "0.1.0",
+  "description": "Google Drive filesystem adapter for just-bash",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "just-bash": ">=2.0.0"
+  },
+  "devDependencies": {
+    "just-bash": "^2.14.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.0"
+  }
+}
