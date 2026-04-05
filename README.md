@@ -6,6 +6,22 @@ Lets AI agents interact with Google Drive files using standard bash commands (`l
 
 Inspired by [just-bash-dropbox](https://github.com/manishrc/just-bash-dropbox) — the same pattern, applied to Google Drive.
 
+## Why not just use the Drive API or gogcli?
+
+Tools like [gogcli](https://github.com/steipete/gogcli) are great when *you* know exactly what you want to do with Drive. You write the specific command, it runs.
+
+`just-bash-gdrive` is for when you want to hand an *agent* the ability to figure that out — and do it safely.
+
+**Compositional bash logic at runtime.** An LLM can write arbitrary pipelines on the fly — `find / -name "*.md" | xargs grep "keyword" | sort` — without you anticipating every possible query in advance. No new API code per use case.
+
+**Drive as a mountable filesystem.** `MountableFs` lets you compose Drive with other filesystems. An agent works across `/drive` (real files) and `/tmp` (scratch space) in the same bash session. The Drive API has no composability story.
+
+**Safe exploration mode.** Mount Drive read-only — the agent can `cat`, `grep`, and `find` freely with zero write risk. There's no equivalent in any Drive CLI.
+
+**AI SDK tool wrapper.** The `bash-tool` package from just-bash wraps the whole thing as a single LLM tool. One line to give any model bash access to Drive.
+
+**The rule of thumb:** use gogcli when you're writing the script. Use just-bash-gdrive when the agent is writing the script.
+
 ## Install
 
 ```bash
